@@ -1,8 +1,25 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import {useState} from 'react'
 
 export default function Home() {
+  const[cookiesData, setCookiesData] = useState([]); //Array of objects where each object represent the data from the user
+
+  function handleUserInput(e){
+    e.preventDefault();
+    console.log('Form has been submitted')
+    const cookieObj = {
+      location: e.target.location.value,
+      minCustomers: e.target.minCustomers.value,
+      maxCustomers: e.target.maxCustomers.value,
+      avgCookies: e.target.avgCookies.value,
+    }
+    setCookiesData(cookieObj)
+    console.log(1111,cookiesData)
+    console.log(2222,cookieObj)
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,58 +28,43 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <header className=''>
+      <div className='bg-green-500 p-5'>
+      <h1 className='text-2xl'>Cookie Stand Admin</h1>
+      </div>
+      </header>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <main className='bg-green-200 py-10' >
+        
+        <div className='py-8 content-evenly flex justify-center '>
+          <form className='bg-green-300 p-8' onSubmit={handleUserInput}>
+            <h2 className='text-center text-2xl'>Create Cookie Stand</h2>
+            <label>Location</label>
+            <input type='text' className='border-solid border-2 border-green-500' name='location'></input>
+            <br/>
+            <div className='flex justify-evenly '>
+            <label className='text-sm'>Minimum Customers per Hour</label>
+            <label className='text-sm'>Maximum Customers per Hour</label>
+            <label className='text-sm' >Average Cookies per Sale</label>
+            </div>
+            <br/>
+            <input type='text' className='border-solid border-2 border-green-500' name='minCustomers'></input>
+            <input type='text' className='border-solid border-2 border-green-500' name='maxCustomers'></input>
+            <input type='text' className='border-solid border-2 border-green-500' name='avgCookies'></input>
+            <button className='bg-green-700 py-1 px-7' >Create</button>
+            
+          </form>
         </div>
+        <div className=''>
+          <p className='text-sm flex justify-center'>Report Table Coming Soon ...</p>
+          <p className='flex justify-center'>
+          {JSON.stringify(cookiesData)}
+          </p>
+          </div>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
+      <footer className='bg-green-500 p-5'>
+        <p><span>&#169;</span>2021</p>
       </footer>
     </div>
   )
